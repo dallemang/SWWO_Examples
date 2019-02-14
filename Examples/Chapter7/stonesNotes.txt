@@ -1,0 +1,1 @@
+The files stones.n3 and stones.owl contain all the triples for the Mick Jaggar example in figure 7-4.  Since this example uses owl:TransitiveProperty, an OWL-based inferencer like Pellet or OWLIM is needed to reproduce the inferences in the text. 

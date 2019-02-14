@@ -1,0 +1,1 @@
+The files JDContradiction.n3 and JDContradiction.owl continue the James Dean example, with the contradiction in Rocky's statements.  Pellet can give an explanation for the contradiction in terms of asserted axioms.  Other tableau reasoners should be able to detect the contradiction.

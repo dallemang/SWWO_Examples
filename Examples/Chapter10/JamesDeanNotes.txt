@@ -1,0 +1,3 @@
+The files JamesDean.n3 and JamesDean.owl contain all the triples for the examples concerning movies in Chapter 10. Because of the advanced use of cardinality, a tableau reasoner like Pellet or Racer must be used to replicate the inferences in the text. 
+
+The final part of the example, in which Rocky is caught in a contradiction, is not included, because of the disruptive effect that a contradiction has on the tableau algorithm. 

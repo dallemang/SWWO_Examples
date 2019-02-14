@@ -1,0 +1,3 @@
+The files cableprovider.n3 and cableprovider.owl work together with the files questionnaire.n3 and questionnaire.owl respectively.  This is the continuation of the example of the same name from Chapter 9. 
+
+Because of the advanced use of cardinality in these examples, a genuine tableau reasoner is required, like Pellet or Racer. 

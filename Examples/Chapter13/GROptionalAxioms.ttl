@@ -1,0 +1,400 @@
+# Saved by TopBraid on Fri Nov 26 12:53:20 PST 2010
+# baseURI: http://WorkingOntologist.org/Examples/Chapter13/GROptionalAxioms
+# imports: http://purl.org/goodrelations/v1
+# imports: http://spinrdf.org/spin
+
+@prefix :        <http://WorkingOntologist.org/Examples/Chapter13/GROptionalAxioms#> .
+@prefix owl:     <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:     <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sp:      <http://spinrdf.org/sp#> .
+@prefix spin:    <http://spinrdf.org/spin#> .
+@prefix spl:     <http://spinrdf.org/spl#> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+
+<http://WorkingOntologist.org/Examples/Chapter13/GROptionalAxioms>
+      rdf:type owl:Ontology ;
+      owl:imports <http://purl.org/goodrelations/v1> , <http://spinrdf.org/spin> ;
+      owl:versionInfo "Created with TopBraid Composer"^^xsd:string .
+
+:Product
+      rdf:type owl:Class ;
+      rdfs:label "Product"^^xsd:string ;
+      rdfs:subClassOf <http://purl.org/goodrelations/v1#ProductOrService> ;
+      spin:rule
+              [ rdf:type sp:Construct ;
+                rdfs:comment "Expand gr:includes between gr:Offering and gr:ProductOrServicesSomeInstancesPlaceholder (older variant)"^^xsd:string ;
+                sp:templates ([ sp:object _:b1 ;
+                            sp:predicate <http://purl.org/goodrelations/v1#includesObject> ;
+                            sp:subject _:b2
+                          ] [ sp:object <http://purl.org/goodrelations/v1#TypeAndQuantityNode> ;
+                            sp:predicate rdf:type ;
+                            sp:subject _:b1
+                          ] [ sp:object "1.0"^^xsd:float ;
+                            sp:predicate <http://purl.org/goodrelations/v1#amountOfThisGood> ;
+                            sp:subject _:b1
+                          ] [ sp:object "C62"^^xsd:string ;
+                            sp:predicate <http://purl.org/goodrelations/v1#hasUnitOfMeasurement> ;
+                            sp:subject _:b1
+                          ] [ sp:object spin:_this ;
+                            sp:predicate <http://purl.org/goodrelations/v1#typeOfGood> ;
+                            sp:subject _:b1
+                          ]) ;
+                sp:where ([ sp:object spin:_this ;
+                            sp:predicate <http://purl.org/goodrelations/v1#includes> ;
+                            sp:subject _:b2
+                          ] [ sp:object <http://purl.org/goodrelations/v1#Offering> ;
+                            sp:predicate rdf:type ;
+                            sp:subject _:b2
+                          ] [ rdf:type sp:Optional ;
+                            sp:elements ([ sp:object _:b3 ;
+                                        sp:predicate <http://purl.org/goodrelations/v1#includesObject> ;
+                                        sp:subject _:b2
+                                      ] [ sp:object
+                                                [ sp:varName "p"^^xsd:string
+                                                ] ;
+                                        sp:predicate <http://purl.org/goodrelations/v1#typeOfGood> ;
+                                        sp:subject _:b3
+                                      ])
+                          ] [ rdf:type sp:Filter ;
+                            sp:expression
+                                    [ rdf:type sp:not ;
+                                      sp:arg1 [ rdf:type sp:bound ;
+                                                sp:arg1 _:b3
+                                              ]
+                                    ]
+                          ])
+              ] ;
+      spin:rule
+              [ rdf:type sp:Construct ;
+                rdfs:comment "Products inherit all product features from their product models unless they are defined for the products individually"^^xsd:string ;
+                sp:templates ([ sp:object _:b4 ;
+                            sp:predicate _:b5 ;
+                            sp:subject spin:_this
+                          ]) ;
+                sp:where ([ sp:object _:b6 ;
+                            sp:predicate <http://purl.org/goodrelations/v1#hasMakeAndModel> ;
+                            sp:subject spin:_this
+                          ] [ sp:object <http://purl.org/goodrelations/v1#ProductOrServiceModel> ;
+                            sp:predicate rdf:type ;
+                            sp:subject _:b6
+                          ] [ sp:object _:b4 ;
+                            sp:predicate _:b5 ;
+                            sp:subject _:b6
+                          ] [ rdf:type sp:TriplePath ;
+                            sp:object :productFeature ;
+                            sp:path [ rdf:type sp:ModPath ;
+                                      sp:modMax -2 ;
+                                      sp:modMin 0 ;
+                                      sp:subPath rdfs:subPropertyOf
+                                    ] ;
+                            sp:subject _:b5
+                          ] [ rdf:type sp:Optional ;
+                            sp:elements ([ sp:object _:b7 ;
+                                        sp:predicate _:b5 ;
+                                        sp:subject spin:_this
+                                      ])
+                          ] [ rdf:type sp:Filter ;
+                            sp:expression
+                                    [ rdf:type sp:not ;
+                                      sp:arg1 [ rdf:type sp:bound ;
+                                                sp:arg1 _:b7
+                                              ]
+                                    ]
+                          ])
+              ] .
+
+:productFeature
+      rdf:type rdf:Property ;
+      rdfs:label "product feature"^^xsd:string .
+
+<http://purl.org/goodrelations/v1#ActualProductOrServiceInstance>
+      rdfs:subClassOf :Product .
+
+<http://purl.org/goodrelations/v1#BusinessEntity>
+      spin:rule
+              [ rdf:type sp:Construct ;
+                sp:templates ([ sp:object spin:_this ;
+                            sp:predicate owl:sameAs ;
+                            sp:subject _:b8
+                          ]) ;
+                sp:where ([ sp:object _:b9 ;
+                            sp:predicate <http://purl.org/goodrelations/v1#legalName> ;
+                            sp:subject spin:_this
+                          ] [ sp:object <http://purl.org/goodrelations/v1#BusinessEntity> ;
+                            sp:predicate rdf:type ;
+                            sp:subject _:b8
+                          ] [ sp:object _:b10 ;
+                            sp:predicate <http://purl.org/goodrelations/v1#legalName> ;
+                            sp:subject _:b8
+                          ] [ rdf:type sp:Filter ;
+                            sp:expression
+                                    [ rdf:type sp:and ;
+                                      sp:arg1 [ rdf:type sp:ne ;
+                                                sp:arg1 [ sp:varName "u1"^^xsd:string
+                                                        ] ;
+                                                sp:arg2 _:b8
+                                              ] ;
+                                      sp:arg2 [ rdf:type sp:eq ;
+                                                sp:arg1 _:b9 ;
+                                                sp:arg2 _:b10
+                                              ]
+                                    ]
+                          ])
+              ] .
+
+<http://purl.org/goodrelations/v1#ProductOrServiceModel>
+      spin:rule
+              [ rdf:type sp:Construct ;
+                sp:templates ([ sp:object spin:_this ;
+                            sp:predicate owl:sameAs ;
+                            sp:subject _:b11
+                          ]) ;
+                sp:where ([ sp:object _:b12 ;
+                            sp:predicate <http://purl.org/goodrelations/v1#hasEAN_UCC-13> ;
+                            sp:subject spin:_this
+                          ] [ sp:object <http://purl.org/goodrelations/v1#ProductOrServiceModel> ;
+                            sp:predicate rdf:type ;
+                            sp:subject _:b11
+                          ] [ sp:object _:b13 ;
+                            sp:predicate <http://purl.org/goodrelations/v1#hasEAN_UCC-13> ;
+                            sp:subject _:b11
+                          ] [ rdf:type sp:Filter ;
+                            sp:expression
+                                    [ rdf:type sp:and ;
+                                      sp:arg1 [ rdf:type sp:and ;
+                                                sp:arg1 [ rdf:type sp:ne ;
+                                                          sp:arg1 [ sp:varName "u1"^^xsd:string
+                                                                  ] ;
+                                                          sp:arg2 _:b11
+                                                        ] ;
+                                                sp:arg2 [ rdf:type sp:eq ;
+                                                          sp:arg1 _:b12 ;
+                                                          sp:arg2 _:b13
+                                                        ]
+                                              ] ;
+                                      sp:arg2 [ rdf:type sp:ne ;
+                                                sp:arg1 _:b12 ;
+                                                sp:arg2 ""
+                                              ]
+                                    ]
+                          ])
+              ] ;
+      spin:rule
+              [ rdf:type sp:Construct ;
+                rdfs:comment "Add gr:hasMakeOrModel links between models and products on the basis of identical EAN_UCC codes"^^xsd:string ;
+                sp:templates ([ sp:object spin:_this ;
+                            sp:predicate <http://purl.org/goodrelations/v1#hasMakeAndModel> ;
+                            sp:subject _:b14
+                          ]) ;
+                sp:where ([ sp:object _:b15 ;
+                            sp:predicate <http://purl.org/goodrelations/v1#hasEAN_UCC-13> ;
+                            sp:subject spin:_this
+                          ] [ sp:object _:b15 ;
+                            sp:predicate <http://purl.org/goodrelations/v1#hasEAN_UCC-13> ;
+                            sp:subject _:b14
+                          ] [ sp:object :Product ;
+                            sp:predicate rdf:type ;
+                            sp:subject _:b14
+                          ] [ rdf:type sp:Optional ;
+                            sp:elements ([ sp:object _:b16 ;
+                                        sp:predicate <http://purl.org/goodrelations/v1#hasMakeAndModel> ;
+                                        sp:subject _:b14
+                                      ])
+                          ] [ rdf:type sp:Filter ;
+                            sp:expression
+                                    [ rdf:type sp:and ;
+                                      sp:arg1 [ rdf:type sp:ne ;
+                                                sp:arg1 _:b15 ;
+                                                sp:arg2 ""
+                                              ] ;
+                                      sp:arg2 [ rdf:type sp:ne ;
+                                                sp:arg1 [ sp:varName "model"^^xsd:string
+                                                        ] ;
+                                                sp:arg2 _:b16
+                                              ]
+                                    ]
+                          ])
+              ] ;
+      spin:rule
+              [ rdf:type sp:Construct ;
+                rdfs:comment "Rule for product variants"^^xsd:string ;
+                sp:templates ([ sp:object _:b17 ;
+                            sp:predicate _:b18 ;
+                            sp:subject _:b19
+                          ]) ;
+                sp:where ([ sp:object <http://purl.org/goodrelations/v1#ProductOrServiceModel> ;
+                            sp:predicate rdf:type ;
+                            sp:subject spin:_this
+                          ] [ sp:object spin:_this ;
+                            sp:predicate <http://purl.org/goodrelations/v1#isVariantOf> ;
+                            sp:subject _:b19
+                          ] [ sp:object <http://purl.org/goodrelations/v1#ProductOrServiceModel> ;
+                            sp:predicate rdf:type ;
+                            sp:subject _:b19
+                          ] [ sp:object _:b17 ;
+                            sp:predicate _:b18 ;
+                            sp:subject spin:_this
+                          ] [ rdf:type sp:TriplePath ;
+                            sp:object :productFeature ;
+                            sp:path [ rdf:type sp:ModPath ;
+                                      sp:modMax -2 ;
+                                      sp:modMin 0 ;
+                                      sp:subPath rdfs:subPropertyOf
+                                    ] ;
+                            sp:subject _:b18
+                          ] [ rdf:type sp:Filter ;
+                            sp:expression
+                                    [ rdf:type sp:and ;
+                                      sp:arg1 [ rdf:type sp:ne ;
+                                                sp:arg1 _:b18 ;
+                                                sp:arg2 <http://purl.org/goodrelations/v1#hasEAN_UCC-13>
+                                              ] ;
+                                      sp:arg2 [ rdf:type sp:ne ;
+                                                sp:arg1 _:b18 ;
+                                                sp:arg2 <http://purl.org/goodrelations/v1#hasStockKeepingUnit>
+                                              ]
+                                    ]
+                          ] [ rdf:type sp:Optional ;
+                            sp:elements ([ sp:object _:b20 ;
+                                        sp:predicate _:b18 ;
+                                        sp:subject _:b19
+                                      ])
+                          ] [ rdf:type sp:Filter ;
+                            sp:expression
+                                    [ rdf:type sp:and ;
+                                      sp:arg1 [ rdf:type sp:not ;
+                                                sp:arg1 [ rdf:type sp:bound ;
+                                                          sp:arg1 _:b20
+                                                        ]
+                                              ] ;
+                                      sp:arg2 [ rdf:type sp:ne ;
+                                                sp:arg1 spin:_this ;
+                                                sp:arg2 _:b19
+                                              ]
+                                    ]
+                          ])
+              ] ;
+      spin:rule
+              [ rdf:type sp:Construct ;
+                rdfs:comment "Expand gr:includes between gr:Offering and grProductOrServiceModel (newer variant)"^^xsd:string ;
+                sp:templates ([ sp:object _:b21 ;
+                            sp:predicate <http://purl.org/goodrelations/v1#includesObject> ;
+                            sp:subject _:b22
+                          ] [ sp:object <http://purl.org/goodrelations/v1#TypeAndQuantityNode> ;
+                            sp:predicate rdf:type ;
+                            sp:subject _:b21
+                          ] [ sp:object "1.0"^^xsd:float ;
+                            sp:predicate <http://purl.org/goodrelations/v1#amountOfThisGood> ;
+                            sp:subject _:b21
+                          ] [ sp:object "C62"^^xsd:string ;
+                            sp:predicate <http://purl.org/goodrelations/v1#hasUnitOfMeasurement> ;
+                            sp:subject _:b21
+                          ] [ sp:object _:b23 ;
+                            sp:predicate <http://purl.org/goodrelations/v1#typeOfGood> ;
+                            sp:subject _:b21
+                          ] [ sp:object <http://purl.org/goodrelations/v1#ProductOrServicesSomeInstancesPlaceholder> ;
+                            sp:predicate rdf:type ;
+                            sp:subject _:b23
+                          ] [ sp:object spin:_this ;
+                            sp:predicate <http://purl.org/goodrelations/v1#hasMakeAndModel> ;
+                            sp:subject _:b23
+                          ]) ;
+                sp:where ([ sp:object spin:_this ;
+                            sp:predicate <http://purl.org/goodrelations/v1#includes> ;
+                            sp:subject _:b22
+                          ] [ sp:object <http://purl.org/goodrelations/v1#Offering> ;
+                            sp:predicate rdf:type ;
+                            sp:subject _:b22
+                          ] [ rdf:type sp:Optional ;
+                            sp:elements ([ sp:object _:b24 ;
+                                        sp:predicate <http://purl.org/goodrelations/v1#includesObject> ;
+                                        sp:subject _:b22
+                                      ] [ sp:object _:b25 ;
+                                        sp:predicate <http://purl.org/goodrelations/v1#typeOfGood> ;
+                                        sp:subject _:b24
+                                      ] [ sp:object
+                                                [ sp:varName "m"^^xsd:string
+                                                ] ;
+                                        sp:predicate <http://purl.org/goodrelations/v1#hasMakeAndModel> ;
+                                        sp:subject _:b25
+                                      ])
+                          ] [ rdf:type sp:Filter ;
+                            sp:expression
+                                    [ rdf:type sp:not ;
+                                      sp:arg1 [ rdf:type sp:bound ;
+                                                sp:arg1 _:b24
+                                              ]
+                                    ]
+                          ])
+              ] .
+
+<http://purl.org/goodrelations/v1#ProductOrServicesSomeInstancesPlaceholder>
+      rdfs:subClassOf :Product .
+
+<http://purl.org/goodrelations/v1#datatypeProductOrServiceProperty>
+      rdfs:subPropertyOf :productFeature .
+
+<http://purl.org/goodrelations/v1#qualitativeProductOrServiceProperty>
+      rdfs:subPropertyOf :productFeature .
+
+<http://purl.org/goodrelations/v1#quantitativeProductOrServiceProperty>
+      rdfs:subPropertyOf :productFeature .
+
+_:b3  sp:varName "c"^^xsd:string .
+
+_:b2  sp:varName "o"^^xsd:string .
+
+_:b13
+      sp:varName "ean2"^^xsd:string .
+
+_:b11
+      sp:varName "u2"^^xsd:string .
+
+_:b12
+      sp:varName "ean1"^^xsd:string .
+
+_:b10
+      sp:varName "name2"^^xsd:string .
+
+_:b8  sp:varName "u2"^^xsd:string .
+
+_:b9  sp:varName "name1"^^xsd:string .
+
+_:b16
+      sp:varName "model2"^^xsd:string .
+
+_:b14
+      sp:varName "product"^^xsd:string .
+
+_:b15
+      sp:varName "ean"^^xsd:string .
+
+_:b20
+      sp:varName "valueModel2"^^xsd:string .
+
+_:b17
+      sp:varName "valueModel1"^^xsd:string .
+
+_:b18
+      sp:varName "property"^^xsd:string .
+
+_:b19
+      sp:varName "model2"^^xsd:string .
+
+_:b25
+      sp:varName "ps"^^xsd:string .
+
+_:b24
+      sp:varName "tqn"^^xsd:string .
+
+_:b22
+      sp:varName "o"^^xsd:string .
+
+_:b7  sp:varName "valueProduct"^^xsd:string .
+
+_:b4  sp:varName "valueModel"^^xsd:string .
+
+_:b5  sp:varName "property"^^xsd:string .
+
+_:b6  sp:varName "model"^^xsd:string .

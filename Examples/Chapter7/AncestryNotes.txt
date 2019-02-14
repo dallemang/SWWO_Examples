@@ -1,0 +1,1 @@
+The files Ancestry.n3 and Ancestry.owl contain all the triples for the royal family example in figure 7-3.  Since this example uses owl:TransitiveProperty, an OWL-based inferencer like Pellet or OWLIM is needed to reproduce the inferences in the text. 

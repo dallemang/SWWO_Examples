@@ -1,0 +1,1 @@
+The files Shopping.n3 and Shopping.owl contain all the triples needed for the inferencing examples in chapter 5. They can be run with an RDFS inferencer (or an OWL inferencer) to produce the inferences shown in the text. 

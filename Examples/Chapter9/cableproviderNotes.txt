@@ -1,0 +1,7 @@
+The files cableprovider.n3 and cableprovider.owl work together with the files questionnaire.n3 and questionnaire.owl respectively.  The cableprovider files include the data about a particular cable televion questionnaire, while the questionnaire files include the model of the questionnaire in the abstract.  cableprovider imports questionnaire using owl:imports.  
+
+All the aspects of the example described in chapter 9 are in this file, including particulars about which answers have been selected etc. 
+
+The example continues in chapter 10, where more advanced aspects of OWL are used in the modeling. 
+
+Because of the use of OWL constructs in this example, and OWL reasoner like OWLIM or Pellet must be used to replicate the inferences in the text. 

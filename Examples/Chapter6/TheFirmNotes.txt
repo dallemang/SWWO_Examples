@@ -1,0 +1,1 @@
+The files TheFirm.n3 and TheFirm.owl contain all the triples needed for the inferencing examples in chapter 6. They can be run with an RDFS inferencer (or an OWL inferencer) to produce the inferences shown in the text. 

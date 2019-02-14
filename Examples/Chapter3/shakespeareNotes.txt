@@ -1,0 +1,1 @@
+The files shakespeare.n3 and .owl include all the triples in the Shakespeare examples through figure 3-6.

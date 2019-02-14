@@ -1,0 +1,1 @@
+Product.txt is the tab-delimited input for Challenge 1.  Product.n3 and Product.owl give the same data as triples. 
